@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Racionální čísla – procvičování</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--text:#172033;--muted:#697386;--line:#dbe2ec;--blue:#2563eb;--green:#15803d;--greenbg:#ecfdf3;--red:#b42318;--redbg:#fff1f1;--info:#eff6ff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;justify-content:center;padding:22px 14px}.wrap{width:min(820px,100%)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px;text-align:center}.stat strong{display:block;font-size:22px}.stat span{font-size:13px;color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 14px 36px rgba(15,23,42,.07)}h1{margin:0 0 5px;font-size:30px}.sub{margin:0 0 22px;color:var(--muted)}.progress{height:8px;background:#e8edf4;border-radius:999px;overflow:hidden;margin-bottom:24px}.progress>div{height:100%;background:var(--blue);width:0;transition:.2s}.topic{text-align:center;color:var(--blue);font-weight:700;font-size:14px;margin-bottom:8px}.task{text-align:center;color:var(--muted);font-size:15px}.problem{text-align:center;font-weight:760;font-size:36px;margin:18px 0 28px;line-height:1.9}.vfrac{display:inline-grid;grid-template-rows:auto auto;vertical-align:middle;text-align:center;line-height:1.05;margin:0 .12em;font-size:.88em}.vfrac>span:first-child{border-bottom:1.8px solid currentColor;padding:0 .2em .08em}.vfrac>span:last-child{padding:.08em .2em 0}.answer-area{display:flex;align-items:center;justify-content:center;margin:8px 0 6px}.equals{font-size:34px;font-weight:700;margin-right:14px}.frac{display:grid;grid-template-rows:auto 2px auto;width:170px;gap:7px}.frac-line{height:2px;background:var(--text);width:100%}.frac input{width:100%;padding:10px 8px;text-align:center;border:2px solid var(--line);border-radius:10px;font-size:21px;outline:none;background:#fff}.frac input:focus{border-color:var(--blue)}.check-wrap{text-align:center;margin-top:18px}button{border:0;border-radius:12px;padding:13px 18px;font:inherit;font-weight:750;cursor:pointer}.primary{background:var(--blue);color:#fff}.secondary{background:#eef2ff;color:#24439a}button:disabled{opacity:.55;cursor:not-allowed}.note{font-size:13px;color:var(--muted);text-align:center;margin-top:10px}.feedback{display:none;margin-top:20px;padding:18px;border-radius:14px;line-height:1.55}.feedback.good{display:block;background:var(--greenbg);border:1px solid #bceccb;color:var(--green)}.feedback.bad{display:block;background:var(--redbg);border:1px solid #ffc7c2;color:var(--red)}.feedback.info{display:block;background:var(--info);border:1px solid #cbdcff;color:#243d78}.steps{color:var(--text);margin-top:11px}.steps div{margin:7px 0}.actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.result{display:none;text-align:center;padding:10px 0 4px}.result.show{display:block}.score{font-size:54px;font-weight:900;margin:10px 0}.small{font-size:13px;color:var(--muted);margin-top:18px;text-align:center}@media(max-width:560px){.card{padding:20px}.problem{font-size:29px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><strong id="qnum">1/10</strong><span>Příklad</span></div>
+    <div class="stat"><strong id="okCount">0</strong><span>Správně</span></div>
+    <div class="stat"><strong id="badCount">0</strong><span>Špatně</span></div>
+  </div>
+  <main class="card">
+    <h1>Racionální čísla a zlomky</h1>
+    <p class="sub">Procvičování podle příkladů z učebnice – 10 náhodných úloh z banky 1000 příkladů.</p>
+    <div class="progress"><div id="progress"></div></div>
+    <section id="quiz">
+      <div class="topic" id="topic">Sčítání a odčítání</div>
+      <div class="task">Vypočítej a výsledek zkrať:</div>
+      <div class="problem" id="problem"></div>
+      <div class="answer-area">
+        <span class="equals">=</span>
+        <div class="frac">
+          <input id="numInput" type="number" inputmode="numeric" placeholder="čitatel" aria-label="Čitatel">
+          <div class="frac-line"></div>
+          <input id="denInput" type="number" inputmode="numeric" placeholder="jmenovatel" aria-label="Jmenovatel">
+        </div>
+      </div>
+      <div class="check-wrap"><button class="primary" id="checkBtn" type="button">Zkontrolovat</button></div>
+      <div class="note">Celé číslo zapiš například jako 5/1. Uzná se i nezkrácený ekvivalentní zlomek.</div>
+      <div id="feedback" class="feedback"></div>
+      <div class="actions">
+        <button class="secondary" id="showBtn" type="button">Ukázat postup</button>
+        <button class="secondary" id="nextBtn" type="button">Jiný příklad</button>
+      </div>
+      <div class="small">V jednom kole se žádný příklad neopakuje.</div>
+    </section>
+    <section id="result" class="result">
+      <h2>Vyhodnocení</h2>
+      <div class="score" id="scorePct">0 %</div>
+      <p id="scoreText"></p>
+      <button class="primary" id="restartBtn" type="button">Nových 10 příkladů</button>
+    </section>
+  </main>
+</div>
+<script>
+(function(){
+"use strict";
+const TOTAL=10;
+const $=id=>document.getElementById(id);
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){const t=b;b=a%b;a=t;}return a||1}
+function norm(n,d){if(d<0){n=-n;d=-d}const g=gcd(n,d);return {n:n/g,d:d/g}}
+function add(a,b){return norm(a.n*b.d+b.n*a.d,a.d*b.d)}
+function sub(a,b){return norm(a.n*b.d-b.n*a.d,a.d*b.d)}
+function mul(a,b){return norm(a.n*b.n,a.d*b.d)}
+function divi(a,b){return norm(a.n*b.d,a.d*b.n)}
+function eq(a,b){const x=norm(a.n,a.d),y=norm(b.n,b.d);return x.n===y.n&&x.d===y.d}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function frac(n,d){return norm(n,d)}
+function proper(maxD=12,neg=true){const d=rnd(2,maxD),n=rnd(1,d-1)*(neg&&Math.random()<.35?-1:1);return frac(n,d)}
+function mixed(maxW=5,maxD=10,neg=false){const w=rnd(1,maxW),d=rnd(2,maxD),r=rnd(1,d-1);let n=w*d+r;if(neg&&Math.random()<.25)n=-n;return frac(n,d)}
+function fhtml(f){const s=f.n<0?"−":"";return s+'<span class="vfrac"><span>'+Math.abs(f.n)+'</span><span>'+f.d+'</span></span>'}
+function mhtml(f){const s=f.n<0?"−":"",n=Math.abs(f.n),w=Math.floor(n/f.d),r=n%f.d;if(!r)return s+w;if(!w)return s+'<span class="vfrac"><span>'+r+'</span><span>'+f.d+'</span></span>';return s+w+'&nbsp;<span class="vfrac"><span>'+r+'</span><span>'+f.d+'</span></span>'}
+function plain(f){return f.d===1?String(f.n):f.n+'/'+f.d}
+function lcm(a,b){return Math.abs(a*b)/gcd(a,b)}
+function mkAddSub(){const a=proper(),b=proper(),c=proper();const o1=Math.random()<.5?'+':'−',o2=Math.random()<.5?'+':'−';let ans=o1==='+'?add(a,b):sub(a,b);ans=o2==='+'?add(ans,c):sub(ans,c);const D=lcm(lcm(a.d,b.d),c.d);const A=a.n*(D/a.d),B=b.n*(D/b.d),C=c.n*(D/c.d);return {kind:'Sčítání a odčítání',diff:1,expr:fhtml(a)+' '+o1+' '+fhtml(b)+' '+o2+' '+fhtml(c),ans,steps:['Najdeme společný jmenovatel: '+D+'.','Převedeme zlomky na '+A+'/'+D+' '+o1+' '+B+'/'+D+' '+o2+' '+C+'/'+D+'.','Sečteme nebo odečteme čitatele.','Výsledek zkrátíme na '+plain(ans)+'.']}}
+function mkMul(){const a=proper(),b=proper(),c=proper();const ans=mul(mul(a,b),c);return {kind:'Násobení zlomků',diff:2,expr:fhtml(a)+' · '+fhtml(b)+' · '+fhtml(c),ans,steps:['Násobíme čitatele mezi sebou a jmenovatele mezi sebou.','Dostaneme '+(a.n*b.n*c.n)+'/'+(a.d*b.d*c.d)+'.','Zkrátíme na '+plain(ans)+'.']}}
+function mkDiv(){const a=proper(),b=proper();const ans=divi(a,b);return {kind:'Dělení zlomků',diff:2,expr:fhtml(a)+' : '+fhtml(b),ans,steps:['Dělení zlomkem změníme na násobení převrácenou hodnotou.','Tedy '+plain(a)+' · '+b.d+'/'+b.n+'.','Po vynásobení a zkrácení vyjde '+plain(ans)+'.']}}
+function mkMixed(){const a=mixed(4,10),b=mixed(4,10),c=mixed(4,10),d=mixed(4,10);const left=sub(a,b),right=add(frac(-c.n,c.d),d);if(left.n===0||right.n===0)return mkMixed();const op=Math.random()<.5?'·':':';const ans=op==='·'?mul(left,right):divi(left,right);return {kind:'Smíšená čísla a závorky',diff:3,expr:'('+mhtml(a)+' − '+mhtml(b)+') '+op+' (−'+mhtml(c)+' + '+mhtml(d)+')',ans,steps:['Převedeme smíšená čísla na nepravé zlomky.','První závorka: '+plain(a)+' − '+plain(b)+' = '+plain(left)+'.','Druhá závorka: −'+plain(c)+' + '+plain(d)+' = '+plain(right)+'.',op==='·'?'Závorky vynásobíme.':'Dělení změníme na násobení převrácenou hodnotou.','Výsledek je '+plain(ans)+'.']}}
+function mkCombo(){const a=mixed(),b=mixed(),c=mixed(),d=mixed();const left=mul(a,b),right=divi(c,d);if(right.n===0)return mkCombo();const ans=divi(left,right);return {kind:'Kombinovaný příklad',diff:4,expr:'('+mhtml(a)+' · '+mhtml(b)+') : ('+mhtml(c)+' : '+mhtml(d)+')',ans,steps:['Smíšená čísla převedeme na nepravé zlomky.','Levá závorka: '+plain(a)+' · '+plain(b)+' = '+plain(left)+'.','Pravá závorka: '+plain(c)+' : '+plain(d)+' = '+plain(right)+'.','Nakonec '+plain(left)+' : '+plain(right)+' = '+plain(ans)+'.']}}
+function generator(i){return [mkAddSub,mkMul,mkDiv,mkMixed,mkCombo][i%5]()}
+function buildBank(){const out=[],seen=new Set();let i=0;while(out.length<1000&&i<20000){const p=generator(i++),k=p.kind+'|'+p.expr;if(!seen.has(k)){seen.add(k);out.push(p)}}return out}
+const BANK=buildBank();
+let round=[],q=0,ok=0,bad=0,current=null,answered=false;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function newRound(){const groups=[1,2,3,4].map(d=>shuffle(BANK.filter(x=>x.diff===d)));round=[...groups[0].slice(0,3),...groups[1].slice(0,3),...groups[2].slice(0,2),...groups[3].slice(0,2)];round=shuffle(round);q=0;ok=0;bad=0;answered=false;$('quiz').style.display='block';$('result').className='result';loadQuestion()}
+function loadQuestion(){current=round[q];answered=false;$('topic').textContent=current.kind;$('problem').innerHTML=current.expr;$('numInput').value='';$('denInput').value='';$('numInput').disabled=false;$('denInput').disabled=false;$('checkBtn').disabled=false;$('feedback').className='feedback';$('feedback').innerHTML='';updateStats();setTimeout(()=>$('numInput').focus(),20)}
+function updateStats(){$('qnum').textContent=(q+1)+'/'+TOTAL;$('okCount').textContent=ok;$('badCount').textContent=bad;$('progress').style.width=(q/TOTAL*100)+'%'}
+function readAnswer(){const ns=$('numInput').value.trim(),ds=$('denInput').value.trim();if(ns===''||ds==='')return null;const n=Number(ns),d=Number(ds);if(!Number.isFinite(n)||!Number.isFinite(d)||d===0)return null;return norm(n,d)}
+function stepsHTML(){let h='<div class="steps">';current.steps.forEach((s,i)=>h+='<div><b>'+(i+1)+'.</b> '+s+'</div>');return h+'<div><b>Výsledek:</b> '+plain(current.ans)+'</div></div>'}
+function lock(){$('numInput').disabled=true;$('denInput').disabled=true;$('checkBtn').disabled=true}
+function check(){if(answered)return;const a=readAnswer();if(!a){$('feedback').className='feedback info';$('feedback').innerHTML='<b>Vyplň čitatele i jmenovatele.</b>';return}answered=true;lock();if(eq(a,current.ans)){ok++;updateStats();$('feedback').className='feedback good';$('feedback').innerHTML='<b>Správně! ✅</b><br>Výsledek je '+plain(current.ans)+'.';setTimeout(goNext,800)}else{bad++;updateStats();$('feedback').className='feedback bad';$('feedback').innerHTML='<b>Špatně ❌</b><br>Správný výsledek je <b>'+plain(current.ans)+'</b>.'+stepsHTML()+'<div style="margin-top:14px"><button class="primary" id="continueBtn" type="button">Další příklad</button></div>';$('continueBtn').addEventListener('click',goNext)}}
+function goNext(){if(q>=TOTAL-1){finish();return}q++;loadQuestion()}
+function showProcedure(){$('feedback').className='feedback info';$('feedback').innerHTML='<b>Postup:</b>'+stepsHTML()}
+function skip(){if(!answered){answered=true;bad++;updateStats()}goNext()}
+function finish(){$('quiz').style.display='none';$('result').className='result show';$('progress').style.width='100%';const pct=Math.round(ok/TOTAL*100);$('scorePct').textContent=pct+' %';let v=pct===100?'Perfektní. Všech 10 správně.':pct>=80?'Výborně. Na test už to vypadá velmi dobře.':pct>=60?'Základ umíš. Dej si ještě jedno kolo.':'Ještě to procvič. U chyby si vždy projdi postup.';$('scoreText').textContent='Správně: '+ok+' z '+TOTAL+'. '+v}
+$('checkBtn').addEventListener('click',check);$('showBtn').addEventListener('click',showProcedure);$('nextBtn').addEventListener('click',skip);$('restartBtn').addEventListener('click',newRound);$('numInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('denInput').focus()});$('denInput').addEventListener('keydown',e=>{if(e.key==='Enter')check()});newRound();
+})();
+</script>
+</body>
+</html>
